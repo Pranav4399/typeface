@@ -20,6 +20,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, replyTo }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (message.trim() !== "") {
+      console.log(message);
       onSendMessage(message, replyTo);
       setMessage("");
     }
@@ -33,7 +34,7 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, replyTo }) => {
   return (
     <form className="chat-input" onSubmit={handleSubmit}>
       {replyTo.id !== null && <div className="reply-container">
-        {replyTo.text}
+        <span style={{color: "#333333"}}>{"> "}</span>{replyTo.text}
       </div>}
       <div className="send-container">
         <input
