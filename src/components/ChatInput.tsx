@@ -26,6 +26,8 @@ const ChatInput: React.FC<ChatInputProps> = ({ onSendMessage, replyTo }) => {
     }
   };
 
+  // If the input is on reply mode and user presses cancel, the text is sent as null.
+  // Further check happens in the handleSendMessage function where the components goes into initial state.
   const handleCancel = () => {
     onSendMessage("", { id: replyTo.id, text: null })
     setMessage("");

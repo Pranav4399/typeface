@@ -33,7 +33,7 @@ function getCurrentDateTime() {
 }
 
 const ChatApp: React.FC = () => {
-  const [messages, setMessages] = useState<ChatMessage[]>([]);
+  const [messages, setMessages] = useState<ChatMessage[]>([]); //State that holds all the messages
   const [replyTo, setReplyTo] = useState<ReplyTo>({
     id: null,
     text: null,
@@ -49,7 +49,8 @@ const ChatApp: React.FC = () => {
       });
       return;
     }
-  
+    
+    // Based on the unique id of the message to which user is replying to, the reply is pushed into corresponding array using a recursive function.
     const addReplyToMessage = (messages: ChatMessage[], replyTo: ReplyTo, newMessage: ChatMessage): ChatMessage[] => {
       for (let msg of messages) {
         if (msg.id === replyTo.id) {
@@ -75,9 +76,11 @@ const ChatApp: React.FC = () => {
       replies: [],
     };
 
+    // If the message is a reply to a previous message
     if (replyTo.id !== null) {
       setMessages((prevMessages) => addReplyToMessage(prevMessages, replyTo, newMessage));
     }
+    // If the message is a parent message.
     else {
       setMessages([newMessage, ...messages]);
     }

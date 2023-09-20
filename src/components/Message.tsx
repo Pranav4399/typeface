@@ -33,6 +33,7 @@ const Message: React.FC<MessageProps> = ({
     });
   };
 
+  // Function to render replies of each parent message through a recursive loop.
   const renderReplies = (replies: ChatMessage[], parentLevel: number) => {
     if (!replies || replies.length === 0) return null;
 
@@ -45,7 +46,7 @@ const Message: React.FC<MessageProps> = ({
             <div
               className="reply-container"
               key={msg.id}
-              style={showLines ? { borderRight: `2px solid ${color}` } : {}}
+              style={showLines ? { borderRight: `2px solid ${color}` } : {}} // If showLines toggle is off, the border won't be visible
             >
               <div className="reply-child">
                 <div className="timestamp">{msg.timestamp}</div>
