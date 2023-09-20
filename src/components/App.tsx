@@ -1,11 +1,7 @@
 import ChatApp from "./ChatApp";
 
 function App() {
-  return (
-    <div>
-      <ChatApp />
-    </div>
-  );
+  return <ChatApp />
 }
 
 export default App;

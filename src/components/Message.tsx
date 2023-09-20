@@ -7,6 +7,7 @@ interface MessageProps {
   message: ChatMessage;
   setReplyTo: React.Dispatch<React.SetStateAction<ReplyTo>>;
   level?: number;
+  showLines: boolean;
 }
 
 const colors = [
@@ -19,7 +20,12 @@ const colors = [
   "#FFA500",
 ];
 
-const Message: React.FC<MessageProps> = ({ message, setReplyTo, level = 0 }) => {
+const Message: React.FC<MessageProps> = ({
+  message,
+  setReplyTo,
+  level = 0,
+  showLines,
+}) => {
   const handleSetReply = (id: string, text: string) => {
     setReplyTo({
       id,
@@ -33,20 +39,27 @@ const Message: React.FC<MessageProps> = ({ message, setReplyTo, level = 0 }) => 
     return (
       <>
         {replies.map((msg) => {
-          const replyLevel = (parentLevel + 1) % 14; 
+          const replyLevel = (parentLevel + 1) % 14;
           const color = colors[replyLevel % 7];
           return (
-            <div className="reply-container" key={msg.id} style={{ borderRight: `2px solid ${color}` }}>
+            <div
+              className="reply-container"
+              key={msg.id}
+              style={showLines ? { borderRight: `2px solid ${color}` } : {}}
+            >
               <div className="reply-child">
-                <div className="reply-message">{`Level ${replyLevel}: ${msg.text}`}</div>
-                <div className="reply-icon-container">
-                  <FaReply
-                    className="reply-icon"
-                    onClick={() => handleSetReply(msg.id, msg.text)}
-                  />
+                <div className="timestamp">{msg.timestamp}</div>
+                <div className="reply-message-container">
+                  <div className="reply-message">{msg.text}</div>
+                  <div className="reply-icon-container">
+                    <FaReply
+                      className="reply-icon"
+                      onClick={() => handleSetReply(msg.id, msg.text)}
+                    />
+                  </div>
                 </div>
               </div>
-              {renderReplies(msg.replies, replyLevel)} {/* Pass replyLevel as the parent level */}
+              {renderReplies(msg.replies, replyLevel)}
             </div>
           );
         })}
@@ -57,12 +70,15 @@ const Message: React.FC<MessageProps> = ({ message, setReplyTo, level = 0 }) => 
   return (
     <div className="message">
       <div className="parent-container">
-        <div className="parent-message">{`Level ${level}: ${message.text}`}</div>
-        <div className="reply-icon-container">
-          <FaReply
-            className="reply-icon"
-            onClick={() => handleSetReply(message.id, message.text)}
-          />
+        <div className="timestamp">{message.timestamp}</div>
+        <div className="parent-message">
+          {message.text}
+          <div className="reply-icon-container">
+            <FaReply
+              className="reply-icon"
+              onClick={() => handleSetReply(message.id, message.text)}
+            />
+          </div>
         </div>
       </div>
       {renderReplies(message.replies, level)} {/* Pass the initial level */}

@@ -3,6 +3,7 @@ import "../styles/styles.scss";
 import Message from "./Message";
 import ChatInput from "./ChatInput";
 import { v4 as uuidv4 } from "uuid";
+import { Toggle } from "@geist-ui/core";
 
 export interface ChatMessage {
   id: string;
@@ -37,6 +38,7 @@ const ChatApp: React.FC = () => {
     id: null,
     text: null,
   });
+  const [showLines, setShowLines] = useState(false);
 
   const handleSendMessage = (message: string, replyTo: ReplyTo) => {
 
@@ -89,9 +91,10 @@ const ChatApp: React.FC = () => {
 
   return (
     <div className="chat-container">
+      <div className="line-toggle">Show Message Level lines : <Toggle onChange={() => setShowLines(prev => !prev)} /></div>
       <div className="message-container">
         {messages.map((msg) => (
-          <Message key={msg.id} message={msg} setReplyTo={setReplyTo} />
+          <Message key={msg.id} message={msg} setReplyTo={setReplyTo} showLines={showLines} />
         ))}
       </div>
       <ChatInput onSendMessage={handleSendMessage} replyTo={replyTo} />

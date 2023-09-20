@@ -6,6 +6,7 @@ body {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  width: 100vw;
 }
 
 .chat-container {
@@ -15,6 +16,13 @@ body {
   border-radius: 10px;
   overflow: hidden;
   height: 90vh;
+  width: 90vw;
+  margin: 0 30px;
+
+  .line-toggle {
+    margin: 10px;
+    text-align: right;
+  }
 
   .message-container {
     flex: 1;
@@ -29,15 +37,17 @@ body {
       margin: 5px 0;
       border: 2px solid #f0f0f0;
       padding: 10px 0;
-      
+
       .parent-container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         align-items: center;
-        padding: 0 10px;
         background-color: #fff;
 
         .parent-message {
+          gap: 5px;
+          display: flex;
+          align-items: center;
           padding: 10px;
           font-size: 14px;
           text-align: right;
@@ -48,23 +58,27 @@ body {
         display: flex;
         flex-direction: column;
         gap: 5px;
-        padding: 0 5px;
+        padding-right: 10px;
         background-color: #fff;
-        border-right: 1px solid #333333;
         margin-right: 15px;
 
         .reply-child {
           display: flex;
-          justify-content: flex-end;
+          justify-content: space-between;
           align-items: center;
           gap: 5px;
         }
 
-        .reply-message {
-          word-wrap: break-word;
-          font-size: 14px;
-          color: #333333;
-        }  
+        .reply-message-container {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          .reply-message {
+            word-wrap: break-word;
+            font-size: 14px;
+            color: #333333;
+          }
+        }
       }
 
       .reply-icon-container {
@@ -72,11 +86,16 @@ body {
           color: #24a0ed;
           cursor: pointer;
           margin-top: 5px;
-      
+
           &:hover {
             color: #1499ec;
           }
         }
+      }
+
+      .timestamp {
+        font-size: 12px;
+        margin: 0 5px;
       }
     }
   }
@@ -111,7 +130,7 @@ body {
       button {
         padding: 10px 20px;
         border: none;
-        background-color: #FF3131;
+        background-color: #ff3131;
         color: #fff;
         cursor: pointer;
         font-size: 14px;
